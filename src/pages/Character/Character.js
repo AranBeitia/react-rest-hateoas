@@ -1,4 +1,6 @@
 import React from "react";
+import * as routes from "../../constants/routes";
+import createRequest from "../../utils/request";
 
 import Layout from "../../components/Layout";
 import CharacterCard from "../../components/CharacterCard";
@@ -20,8 +22,8 @@ class Character extends React.Component {
   async loadCharacter() {
     const characterId = this.props.match.params.id;
 
-    return axios
-      .get(`https://rickandmortyapi.com/api/character/${characterId}`)
+    axios
+      .get(`https://rickandmortyapi.com/api${routes.CHARACTER}/${characterId}`)
       .then((result) => {
         this.setState({ character: result.data });
       })
@@ -30,7 +32,6 @@ class Character extends React.Component {
 
   render() {
     const { character } = this.state;
-    console.log(character);
     return (
       <Layout>
         {/* <CharacterCard

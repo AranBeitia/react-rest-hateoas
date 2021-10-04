@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import * as routes from "../../constants/routes";
 
 import Layout from "../../components/Layout";
 import EpisodeCard from "../../components/EpisodeCard";
@@ -24,7 +25,7 @@ class Episode extends Component {
 
   async loadCharacters() {
     let episodeId = this.props.match.params.id;
-    const EPISODE_URL = `https://rickandmortyapi.com/api/episode/${episodeId}`;
+    const EPISODE_URL = `https://rickandmortyapi.com/api${routes.EPISODE}/${episodeId}`;
 
     axios
       .get(EPISODE_URL)

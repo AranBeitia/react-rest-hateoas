@@ -2,8 +2,8 @@ import React, { Component } from "react";
 
 import Layout from "../../components/Layout";
 import EpisodeCard from "../../components/EpisodeCard";
-import getApi from "../../utils/getApi";
 import axios from "axios";
+import * as routes from "../../constants/routes";
 
 class Home extends Component {
   constructor(props) {
@@ -21,18 +21,19 @@ class Home extends Component {
 
   async componentDidMount() {
     this.loadEpisodes();
-    // console.log(this.getPages());
+    // this.getPages();
   }
 
-  componentDidUpdate() {
-    this.nextPage();
-  }
-  async getPages() {
-    getApi("https://rickandmortyapi.com/api/episode");
-  }
+  // componentDidUpdate() {
+  //   this.nextPage();
+  // }
+  // async getPages() {
+  //   const hi = axios.get("https://rickandmortyapi.com/api/episode");
+  //   console.log(hi);
+  // }
 
   async loadEpisodes() {
-    const EPISODES_URL = `https://rickandmortyapi.com/api/episode?page=1`;
+    const EPISODES_URL = `https://rickandmortyapi.com/api${routes.EPISODE}?page=1`;
     axios
       .get(EPISODES_URL)
       .then((response) => {
