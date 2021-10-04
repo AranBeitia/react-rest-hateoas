@@ -76,7 +76,11 @@ class Home extends Component {
           ))}
           <div className="col col-12">
             <hr />
-            <button onClick={this.nextPage}>Next page</button>
+            <div className="text-center">
+              <button className="btn btn-primary" onClick={this.nextPage}>
+                Load next page
+              </button>
+            </div>
           </div>
         </section>
       </Layout>
