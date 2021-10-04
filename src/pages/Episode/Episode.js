@@ -48,23 +48,21 @@ class Episode extends Component {
     const { characters, episode, hasLoaded } = this.state;
     return (
       <Layout>
+        <h2>{episode}</h2>
         <section className="row">
-          <div className="col col-12">
-            <h2>{episode}</h2>
-            {hasLoaded &&
-              characters.map((character, id) => (
-                <CharacterCard
-                  key={character.id}
-                  id={character.id}
-                  name={character.name}
-                  image={character.image}
-                  species={character.species}
-                  status={character.status}
-                  origin={character.origin}
-                  location={character.location}
-                />
-              ))}
-          </div>
+          {hasLoaded &&
+            characters.map((character) => (
+              <CharacterCard
+                key={character.id}
+                id={character.id}
+                name={character.name}
+                image={character.image}
+                species={character.species}
+                status={character.status}
+                origin={character.origin}
+                location={character.location}
+              />
+            ))}
         </section>
       </Layout>
     );
