@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import Layout from "../../components/Layout";
 import EpisodeCard from "../../components/EpisodeCard";
+import getApi from "../../utils/getApi";
 import axios from "axios";
 
 class Home extends Component {
@@ -20,11 +21,20 @@ class Home extends Component {
 
   async componentDidMount() {
     this.loadEpisodes();
+    // console.log(this.getPages());
+  }
+
+  componentDidUpdate() {
+    this.nextPage();
+  }
+  async getPages() {
+    getApi("https://rickandmortyapi.com/api/episode");
   }
 
   async loadEpisodes() {
+    const EPISODES_URL = `https://rickandmortyapi.com/api/episode?page=1`;
     axios
-      .get("https://rickandmortyapi.com/api/episode?page=1")
+      .get(EPISODES_URL)
       .then((response) => {
         const newEpisodes = response.data.results;
         this.setState({ episodes: newEpisodes, hasLoaded: true });
@@ -34,6 +44,13 @@ class Home extends Component {
         console.log(error);
       });
   }
+
+  nextPage = () => {
+    if (this.state.page === this.state.paginationInfo) {
+      this.setState({ paginationInfo: this.state.page + 1 });
+    }
+    console.log("next page");
+  };
 
   render() {
     const { episodes, hasLoaded, hasError } = this.state;
@@ -59,6 +76,7 @@ class Home extends Component {
           ))}
           <div className="col col-12">
             <hr />
+            <button onClick={this.nextPage}>Next page</button>
           </div>
         </section>
       </Layout>
