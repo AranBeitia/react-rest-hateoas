@@ -27,6 +27,7 @@ class Location extends React.Component {
   }
   render() {
     const { locations } = this.state;
+    console.log(locations);
     return (
       <Layout>
         <p>location: {locations.name}</p>
