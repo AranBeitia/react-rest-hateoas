@@ -27,9 +27,12 @@ class Location extends React.Component {
   }
   render() {
     const { locations } = this.state;
-    console.log(locations);
+    const { history } = this.props;
     return (
       <Layout>
+        <button className="btn btn-primary" onClick={history.goBack}>
+          Back
+        </button>
         <p>location: {locations.name}</p>
       </Layout>
     );

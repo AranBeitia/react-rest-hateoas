@@ -1,6 +1,5 @@
 import React from "react";
 import * as routes from "../../constants/routes";
-import { Link, useHistory } from "react-router-dom";
 import createRequest from "../../utils/request";
 import axios from "axios";
 
@@ -43,11 +42,13 @@ class Character extends React.Component {
 
   render() {
     const { character, episodes, hasLoaded } = this.state;
-    // const history = useHistory();
+    const { history } = this.props;
     return (
       <Layout>
-        {/* <Link to={() => history.goBack()}>Back</Link> */}
-        {hasLoaded && character && (
+        <button className="btn btn-primary" onClick={history.goBack}>
+          back
+        </button>
+        {hasLoaded && (
           <CharacterCard
             id={character.id}
             name={character.name}
