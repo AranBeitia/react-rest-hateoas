@@ -1,10 +1,12 @@
 import React from "react";
 import * as routes from "../../constants/routes";
+import { Link } from "react-router-dom";
 import createRequest from "../../utils/request";
+import axios from "axios";
 
 import Layout from "../../components/Layout";
-import CharacterCard from "../../components/CharacterCard";
-import axios from "axios";
+//import CharacterCard from "../../components/CharacterCard";
+import EpisodeCard from "../../components/EpisodeCard/EpisodeCard";
 class Character extends React.Component {
   constructor(props) {
     super(props);
@@ -25,31 +27,52 @@ class Character extends React.Component {
     axios
       .get(`https://rickandmortyapi.com/api${routes.CHARACTER}/${characterId}`)
       .then((result) => {
-        this.setState({ character: result.data });
+        const newEpisode = result.data.episode;
+
+        axios.all(newEpisode.map((url) => axios.get(url))).then((request) => {
+          const res = request.map((i) => i.data);
+          this.setState({
+            character: result.data,
+            episodes: res,
+            hasLoaded: true,
+          });
+        });
       })
       .catch((error) => console.log(error));
   }
 
   render() {
-    const { character } = this.state;
+    const { character, episodes, hasLoaded } = this.state;
+    console.log(episodes);
     return (
       <Layout>
+        <Link to={`${routes.EPISODE}/${1}`}>Back</Link>
         {/* <CharacterCard
           id={character.id}
           name={character.name}
           image={character.image}
-          species={character.species}
           status={character.status}
-          origin={character.origin}
-          location={character.location}
         /> */}
         <div>
+          <img src={character.image} alt={character.name} />
           <p>{character.name}</p>
-          <p>{character.id}</p>
-          <p>{character.image}</p>
-          <p>{character.status}</p>
-          {/* <p>{character.origin}</p>
-          <p>{character.location}</p> */}
+          <h5>CHARACTER</h5>
+          <span>{character.species} | </span>
+          <span>{character.status}</span>
+          <h5>ORIGIN</h5>
+          <span>character.origin.name</span>
+          <h5>LOCATION</h5>
+          <span>character.location.name</span>
+          <hr />
+          <h5>Episodes</h5>
+          {hasLoaded &&
+            episodes.map((episode) => (
+              <EpisodeCard
+                name={episode.name}
+                airDate={episode.air_date}
+                episode={episode.episode}
+              />
+            ))}
         </div>
       </Layout>
     );
