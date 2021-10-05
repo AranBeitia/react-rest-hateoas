@@ -6,6 +6,7 @@ import axios from "axios";
 import Layout from "../../components/Layout";
 import CharacterCard from "../../components/CharacterCard";
 import EpisodeCard from "../../components/EpisodeCard/EpisodeCard";
+import ButtonGoBack from "../../components/ButtonGoBack";
 class Character extends React.Component {
   constructor(props) {
     super(props);
@@ -47,9 +48,7 @@ class Character extends React.Component {
       <Layout>
         <section className="row">
           <div className="col col-12">
-            <button className="btn btn-primary" onClick={history.goBack}>
-              back
-            </button>
+            <ButtonGoBack path={history} />
           </div>
           {hasLoaded && (
             <CharacterCard

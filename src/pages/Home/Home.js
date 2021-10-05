@@ -84,7 +84,10 @@ class Home extends Component {
                 </button>
               )}
               {page < 3 && (
-                <button className="btn btn-primary" onClick={this.nextPage}>
+                <button
+                  className="btn btn-primary ml-1"
+                  onClick={this.nextPage}
+                >
                   Next
                 </button>
               )}

@@ -7,6 +7,7 @@ import LocationCard from "../../components/LocationCard";
 import createRequest from "../../utils/request";
 import axios from "axios";
 import CharacterCard from "../../components/CharacterCard";
+import ButtonGoBack from "../../components/ButtonGoBack";
 class Location extends React.Component {
   constructor(props) {
     super(props);
@@ -42,14 +43,11 @@ class Location extends React.Component {
   render() {
     const { location, characters, hasLoaded } = this.state;
     const { history } = this.props;
-    console.log(characters);
     return (
       <Layout>
         <section className="row">
           <div className="col col-12">
-            <button className="btn btn-primary" onClick={history.goBack}>
-              Back
-            </button>
+            <ButtonGoBack path={history} />
           </div>
           <div className="col col-12">
             <h5>Location</h5>
