@@ -45,32 +45,25 @@ class Character extends React.Component {
     const { history } = this.props;
     return (
       <Layout>
-        <button className="btn btn-primary" onClick={history.goBack}>
-          back
-        </button>
-        {hasLoaded && (
-          <CharacterCard
-            id={character.id}
-            name={character.name}
-            image={character.image}
-            status={character.status}
-            location={character.location}
-            origin={character.origin}
-          />
-        )}
-        <div>
-          {/* <img src={character.image} alt={character.name} />
-          <p>{character.name}</p>
-          <h5>CHARACTER</h5>
-          <span>{character.species} | </span>
-          <span>{character.status}</span>
-          <h5>ORIGIN</h5>
-          <span>{character.origin && character.origin.name}</span>
-          <h5>LOCATION</h5>
-          <span>{character.location && character.location.name}</span>
-          <hr /> */}
-
-          <h5>Episodes</h5>
+        <section className="row">
+          <div className="col col-12">
+            <button className="btn btn-primary" onClick={history.goBack}>
+              back
+            </button>
+          </div>
+          {hasLoaded && (
+            <CharacterCard
+              id={character.id}
+              name={character.name}
+              image={character.image}
+              status={character.status}
+              location={character.location}
+              origin={character.origin}
+            />
+          )}
+          <div className="col col-12">
+            <h5>Episodes</h5>
+          </div>
           {hasLoaded &&
             episodes.map((episode) => (
               <EpisodeCard
@@ -81,7 +74,7 @@ class Character extends React.Component {
                 episode={episode.episode}
               />
             ))}
-        </div>
+        </section>
       </Layout>
     );
   }

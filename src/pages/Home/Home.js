@@ -11,7 +11,7 @@ class Home extends Component {
 
     this.state = {
       page: 1,
-      paginationInfo: null,
+      paginationInfo: 1,
       episodes: [],
       hasLoaded: false,
       hasError: false,
@@ -20,20 +20,20 @@ class Home extends Component {
   }
 
   async componentDidMount() {
-    this.loadEpisodes();
-    // this.getPages();
+    const { page } = this.state;
+    this.loadEpisodes(page);
   }
 
-  // componentDidUpdate() {
-  //   this.nextPage();
-  // }
-  // async getPages() {
-  //   const hi = axios.get("https://rickandmortyapi.com/api/episode");
-  //   console.log(hi);
-  // }
+  async componentDidUpdate() {
+    const { page, paginationInfo } = this.state;
 
-  async loadEpisodes() {
-    const EPISODES_URL = `https://rickandmortyapi.com/api${routes.EPISODE}?page=1`;
+    if (page !== paginationInfo) {
+      this.loadEpisodes(page);
+    }
+  }
+
+  async loadEpisodes(page) {
+    const EPISODES_URL = `https://rickandmortyapi.com/api${routes.EPISODE}?page=${page}`;
     axios
       .get(EPISODES_URL)
       .then((response) => {
@@ -46,15 +46,15 @@ class Home extends Component {
       });
   }
 
+  prevPage = () => {
+    this.setState({ page: this.state.page - 1 });
+  };
   nextPage = () => {
-    if (this.state.page === this.state.paginationInfo) {
-      this.setState({ paginationInfo: this.state.page + 1 });
-    }
-    console.log("next page");
+    this.setState({ page: this.state.page + 1 });
   };
 
   render() {
-    const { episodes, hasLoaded, hasError } = this.state;
+    const { episodes, hasLoaded, hasError, page } = this.state;
     return (
       <Layout>
         <section className="row">
@@ -78,9 +78,16 @@ class Home extends Component {
           <div className="col col-12">
             <hr />
             <div className="text-center">
-              <button className="btn btn-primary" onClick={this.nextPage}>
-                Load next page
-              </button>
+              {page > 1 && (
+                <button className="btn btn-primary" onClick={this.prevPage}>
+                  Prev
+                </button>
+              )}
+              {page < 3 && (
+                <button className="btn btn-primary" onClick={this.nextPage}>
+                  Next
+                </button>
+              )}
             </div>
           </div>
         </section>

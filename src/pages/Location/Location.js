@@ -30,10 +30,17 @@ class Location extends React.Component {
     const { history } = this.props;
     return (
       <Layout>
-        <button className="btn btn-primary" onClick={history.goBack}>
-          Back
-        </button>
-        <p>location: {locations.name}</p>
+        <section className="row">
+          <div className="col col-12">
+            <button className="btn btn-primary" onClick={history.goBack}>
+              Back
+            </button>
+          </div>
+          <div className="col col-12">
+            <h5>Location</h5>
+          </div>
+          <p>location: {locations.name}</p>
+        </section>
       </Layout>
     );
   }
