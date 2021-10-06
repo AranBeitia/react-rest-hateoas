@@ -61,10 +61,18 @@ class Location extends React.Component {
             <h5>Residents</h5>
           </div>
           {hasLoaded &&
-            characters.map((resident) => {
-              // console.log(resident.name);
-              <p>{resident.name}</p>;
-            })}
+            characters.map((character) => (
+              <CharacterCard
+                key={character.id}
+                id={character.id}
+                name={character.name}
+                image={character.image}
+                species={character.species}
+                status={character.status}
+                origin={character.origin}
+                location={character.location}
+              />
+            ))}
         </section>
       </Layout>
     );

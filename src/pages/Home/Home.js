@@ -49,6 +49,7 @@ class Home extends Component {
   prevPage = () => {
     this.setState({ page: this.state.page - 1 });
   };
+
   nextPage = () => {
     this.setState({ page: this.state.page + 1 });
   };
